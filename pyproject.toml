@@ -1,0 +1,8 @@
+[project]
+name = "tdtl-risk-ai-engine"
+version = "1.0.0"
+description = "AI/ML engine for transaction monitoring, collections fraud, recovery intelligence and vigilance."
+requires-python = ">=3.10"
+
+[tool.setuptools]
+package-dir = {"" = "src"}

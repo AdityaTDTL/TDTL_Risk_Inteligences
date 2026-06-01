@@ -1,0 +1,11 @@
+# AI Engine requirements (core runtime for fraud detection)
+# Minimal set to run the feature builder and model inference
+pandas>=2.2,<3.0
+numpy>=1.26,<2.0
+scikit-learn>=1.7,<2.0
+joblib>=1.4,<2.0
+fastapi>=0.115,<0.200
+uvicorn>=0.30,<0.31
+networkx>=3.4,<4.0
+# Optional (only needed for advanced graph models)
+# python-igraph>=0.11.0

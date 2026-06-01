@@ -1,0 +1,27 @@
+risk_thresholds:
+  low: 30
+  medium: 50
+  high: 70
+  critical: 85
+features:
+  transaction:
+    - amount
+    - undeclared_source
+    - bureau_inquiries_7d
+    - gps_mismatch_km
+    - repeated_source_count
+    - employee_override_count
+    - channel_risk_weight
+  collection:
+    - month_end_flag
+    - collection_spike_ratio
+    - undeclared_source
+    - repeated_source_count
+    - gps_mismatch_km
+    - agent_prior_risk
+  employee:
+    - override_count_30d
+    - suspicious_activity_count_30d
+    - after_hours_activity_count
+    - repeated_customer_access_count
+    - maker_checker_violation_count

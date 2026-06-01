@@ -1,0 +1,30 @@
+# .gitignore for tdtl-risk-ai-engine
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Python cache / compiled files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# pytest cache
+.pytest_cache/
+.pytest_cache/*
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Build / distribution artefacts
+build/
+Dist/
+*.egg-info/
+
+# IDE / editor files (optional)
+.vscode/
+*.code-workspace
+
+# Model artefacts (optional – keep if stored elsewhere)
+# model_artifacts/
