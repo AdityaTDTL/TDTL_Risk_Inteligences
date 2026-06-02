@@ -1,4 +1,4 @@
-cd .transaction_id,customer_id,agent_id,branch,amount,channel,source_account,declared_account,bureau_inquiries_7d,gps_mismatch_km,repeated_source_count,employee_override_count
+transaction_id,customer_id,agent_id,branch,amount,channel,source_account,declared_account,bureau_inquiries_7d,gps_mismatch_km,repeated_source_count,employee_override_count
 TX000000,CUST00502,AG0029,Mumbai,73410.98,ATM,ACC9017,ACC1057,0,0.81,0,0
 TX000001,CUST01117,AG0054,Mumbai,24426.6,Wallet,ACC1013,ACC1013,0,1.41,3,0
 TX000002,CUST00441,AG0098,Nagpur,11154.1,NEFT,ACC1174,ACC1174,3,0.0,2,0

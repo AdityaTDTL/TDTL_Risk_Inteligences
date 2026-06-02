@@ -65,26 +65,30 @@ def investigation_summary(req: AgenticRequest):
 def rule_recommendations(req: AgenticRequest):
     return rule_agent.recommend(req.payload)
 
-# New phone‑search workflow endpoints
+# New phone‑search workflow endpoint
 @router.post("/search-phone-number", response_model=PhoneSearchResponse)
 async def search_phone_number(req: PhoneSearchRequest):
-    # 1. Validate phone already done by schema
-    # 2. Customer lookup
+    # 1. Phone validation is handled by the Pydantic schema
     customer = await CustomerService.get_customer_by_phone(req.phone)
     if not customer:
         raise HTTPException(status_code=404, detail="Customer not found")
-    # 3. Fetch transactions
+    # 2. Fetch all transactions for the customer
     transactions = await CustomerService.get_transactions_by_customer_id(customer.customer_id)
-    # 4‑9. Gather linked data (stubbed for now)
-    # 10‑11. Fraud analysis on suspicious transactions
+    # 3. If a specific transaction_id is supplied, locate it
+    current_tx = None
+    if req.transaction_id:
+        current_tx = next((t for t in transactions if t.transaction_id == req.transaction_id), None)
+        if not current_tx:
+            raise HTTPException(status_code=404, detail="Transaction ID not found for this customer")
+    # 4. Perform fraud analysis on the transaction list
     fraud_results = await FraudAnalysisService.analyze_transactions(transactions)
-    # 12. Assemble response (simplified)
+    # 5. Assemble response (including the requested transaction if any)
     response = PhoneSearchResponse(
         customer=customer,
         total_transactions=len(transactions),
         suspicious_transactions=len(fraud_results),
         average_repayment=None,
-        current_transaction=None,
+        current_transaction=current_tx,
         fraud_results=fraud_results,
         graph_summary={},
         final_alert="LOW",

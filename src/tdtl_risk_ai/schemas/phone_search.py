@@ -40,6 +40,7 @@ class FraudAnalysisResult(BaseModel):
     risk_details: dict
     final_risk_score: float
     risk_level: str
+    description: str | None = None
 
 class PhoneSearchResponse(BaseModel):
     customer: CustomerProfile

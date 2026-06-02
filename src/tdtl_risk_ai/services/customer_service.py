@@ -2,10 +2,10 @@ import pandas as pd
 from pathlib import Path
 from tdtl_risk_ai.schemas.phone_search import CustomerProfile, TransactionRecord
 
-DATA_ROOT = Path(__file__).resolve().parents[3] / "data"
+DATA_ROOT = Path(r"C:\Users\91895\Desktop\TDTL\Risk Intelligent-AI\tdtl-risk-demo-dataset-1lac-plus\tdtl_risk_demo_dataset")
 
-CUSTOMERS_CSV = DATA_ROOT / "customers.csv"
-TRANSACTIONS_CSV = DATA_ROOT / "transactions_120k.csv"
+CUSTOMERS_CSV = DATA_ROOT / "master" / "customers.csv"
+TRANSACTIONS_CSV = DATA_ROOT / "transactions" / "transactions_120k.csv"
 
 class CustomerService:
     @staticmethod
@@ -16,8 +16,10 @@ class CustomerService:
         if not CUSTOMERS_CSV.exists():
             return None
         df = pd.read_csv(CUSTOMERS_CSV)
-        # Assume column 'phone' stores numbers in E164 format
-        row = df[df["phone"] == phone]
+        # The schema passes an E.164 phone (e.g., +919876543210), but CSV uses 10-digit mobile numbers
+        search_phone = phone[-10:] if len(phone) >= 10 else phone
+        df["mobile"] = df["mobile"].astype(str)
+        row = df[df["mobile"] == search_phone]
         if row.empty:
             return None
         r = row.iloc[0]

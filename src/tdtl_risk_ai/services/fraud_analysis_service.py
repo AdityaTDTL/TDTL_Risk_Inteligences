@@ -23,11 +23,6 @@ class FraudAnalysisService:
                 "source_account": tx.source_account_id,
                 "declared_account": tx.source_account_id,  # same as source for demo
                 "channel": tx.channel,
-                "source_lat": 0.0,
-                "source_lon": 0.0,
-                "declared_lat": 0.0,
-                "declared_lon": 0.0,
-                "customer_id": "unknown",
             }
             features = TransactionFeatures(**feature_dict).to_model_dict()
             # Get scores from HybridRiskScorer (may raise if model not trained)
@@ -54,6 +49,13 @@ class FraudAnalysisService:
                     risk_details=risk_details,
                     final_risk_score=final_score,
                     risk_level=risk_level,
+                    description=(
+                        f"High risk: anomaly {anomaly_score:.2f}, fraud prob {fraud_prob:.2f}."
+                        if final_score > 70 else
+                        f"Moderate risk: anomaly {anomaly_score:.2f}, fraud prob {fraud_prob:.2f}."
+                        if final_score > 40 else
+                        f"Low risk: anomaly {anomaly_score:.2f}, fraud prob {fraud_prob:.2f}."
+                    ),
                 )
             )
         return results
